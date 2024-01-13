@@ -1,26 +1,34 @@
 package main;
 
+// TODO: Implement custom hash function
 public class HashMap {
     private HashMapNode[] buckets;
-    private static final int INITIAL_CAPACITY = 16;
+    private int capacity;
     private int size;
+    private static final int INITIAL_CAPACITY = 16;
+    private static final double LOAD_FACTOR_THRESHOLD = 0.75;
 
     public HashMap() {
-        buckets = new HashMapNode[INITIAL_CAPACITY];
+        capacity = INITIAL_CAPACITY;
+        buckets = new HashMapNode[capacity];
         size = 0;
     }
 
     private int getBucketIndex(String key, int probeCount) {
         int hashCode = key.hashCode();
-        return Math.abs(hashCode + probeCount) % buckets.length;
+        return Math.abs(hashCode + probeCount) % capacity;
     }
 
     public void put(String key, Person value) {
+        if ((double) size / capacity >= LOAD_FACTOR_THRESHOLD) {
+            resize();
+        }
+
         int probeCount = 0;
         int bucketIndex = getBucketIndex(key, probeCount);
         while (buckets[bucketIndex] != null && buckets[bucketIndex].getKey() != key.hashCode()) {
-            bucketIndex = getBucketIndex(key, probeCount);
             probeCount++;
+            bucketIndex = getBucketIndex(key, probeCount);
         }
 
         if (buckets[bucketIndex] != null && buckets[bucketIndex].getKey() == key.hashCode()) {
@@ -41,8 +49,24 @@ public class HashMap {
             probeCount++;
             bucketIndex = getBucketIndex(key, probeCount);
         }
-        return null; // Not found
+        return null;
     }
 
-    // Additional methods like remove, size, etc.
+    /**
+     * Resizes the hash table when the load factor threshold is exceeded.
+     * This method doubles the capacity of the hash table.
+     */
+    private void resize() {
+        int newCapacity = capacity * 2;
+        HashMapNode[] oldBuckets = buckets;
+        buckets = new HashMapNode[newCapacity];
+        capacity = newCapacity;
+        size = 0;
+        for (HashMapNode node : oldBuckets) {
+            if (node != null) {
+                put(node.value.getName(), node.value);
+            }
+        }
+    }
+
 }
