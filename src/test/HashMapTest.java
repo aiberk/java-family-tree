@@ -40,4 +40,34 @@ public class HashMapTest {
         }
     }
 
+    @Test
+    public void testIsEmpty() {
+        assertTrue(hashMap.isEmpty());
+        hashMap.put("Alice", new Person("Alice", "MotherAlice", "FatherAlice"));
+        assertFalse(hashMap.isEmpty());
+    }
+
+    @Test
+    public void testContainsKey() {
+        assertFalse(hashMap.containsKey("Alice"));
+        hashMap.put("Alice", new Person("Alice", "MotherAlice", "FatherAlice"));
+        assertTrue(hashMap.containsKey("Alice"));
+    }
+
+    @Test
+    public void testSize() {
+        assertEquals(0, hashMap.size());
+        hashMap.put("Alice", new Person("Alice", "MotherAlice", "FatherAlice"));
+        assertEquals(1, hashMap.size());
+        hashMap.put("Bob", new Person("Bob", "MotherBob", "FatherBob"));
+        assertEquals(2, hashMap.size());
+    }
+
+    @Test
+    public void testToString() {
+        // Add some entries
+        hashMap.put("Alice", new Person("Alice", "MotherAlice", "FatherAlice"));
+        hashMap.put("Bob", new Person("Bob", "MotherBob", "FatherBob"));
+        assertEquals("{63350368: Alice, 66965: Bob}", hashMap.toString());
+    }
 }
