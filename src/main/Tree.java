@@ -1,6 +1,7 @@
 package main;
 
 //TODO: Implement indententation for printing with sb
+//TODO: Make sure to first make all nodes from the first list, and then make connections. Otherwise, you might not be able to find a node
 public class Tree {
 
     private Person root; // Root of the tree, typically the oldest ancestor

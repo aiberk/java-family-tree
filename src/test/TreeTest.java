@@ -14,10 +14,10 @@ public class TreeTest {
     @Before
     public void setUp() {
         familyTree = new Tree();
-        // Setup the tree with some initial data
-        familyTree.addPerson("John", null, null);
-        familyTree.addPerson("Mary", null, null);
-        familyTree.addPerson("Alice", "Mary", "John");
+        // Roots, children, grandchildren
+
+        familyTree.addPerson("Mary", "Anotnella", "John");
+        familyTree.addPerson("Alice", "Mary", "Joe");
         familyTree.addPerson("Bob", "Alice", "Unknown");
     }
 
