@@ -3,38 +3,50 @@ package test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import main.Person;
+import main.Array;
 
 public class PersonTest {
 
-    // This setup method will run before each test, if you need to initialize anything
+    private Person person;
+    private Person mother;
+    private Person father;
+    private Person child;
+
     @Before
     public void setUp() throws Exception {
-        // Initialize objects if necessary
+        mother = new Person("Jane", null, null);
+        father = new Person("John", null, null);
+        person = new Person("Alice", "Jane", "John");
+        child = new Person("Bob", "Alice", "Unknown");
     }
 
-    // Example test for a method that gets the person's name
     @Test
     public void testGetName() {
-        fail("Not implemented yet");
+        assertEquals("Alice", person.getName());
     }
 
-    // Example test for a method that gets the person's mother
     @Test
     public void testGetMother() {
-        fail("Not implemented yet");
+        assertEquals("Jane", person.getMother());
     }
 
-    // Example test for a method that gets the person's father
     @Test
     public void testGetFather() {
-        fail("Not implemented yet");
+        assertEquals("John", person.getFather());
     }
 
-    // Example test for a method that gets the person's children
     @Test
-    public void testGetChildren() {
-        fail("Not implemented yet");
+    public void testAddChildAndGetChildren() {
+        person.addChild(child);
+        Array<Person> children = person.getChildren();
+        assertNotNull(children);
+        assertEquals(1, children.getSize());
+        assertSame(child, children.get(0));
     }
 
-    // Add more tests as necessary for other methods within your Person class
+    @Test
+    public void testToString() {
+        assertEquals("Alice", person.toString());
+    }
 }
