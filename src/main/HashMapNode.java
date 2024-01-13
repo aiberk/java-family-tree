@@ -22,6 +22,11 @@ public class HashMapNode {
     public boolean isActive;
 
     /**
+     * Reference to the next node in the chain. This is used in case of collisions.
+     */
+    public HashMapNode next;
+
+    /**
      * Constructs an Entry with a specified key and value.
      * 
      * @param key   The int key of the entry, typically a hash of the Person.
@@ -31,6 +36,7 @@ public class HashMapNode {
         this.key = key;
         this.value = value;
         this.isActive = true;
+        this.next = null;
     }
 
     // Getter for key
