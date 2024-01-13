@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Relatives {
+    // TODO: read from file, populate tree line by line, ask for name, print tree
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
