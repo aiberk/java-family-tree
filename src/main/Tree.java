@@ -2,40 +2,6 @@ package main;
 
 public class Tree {
 
-    public static void main(String[] args) {
-        Tree familyTree = new Tree();
-
-        // Manually adding people to the tree
-        familyTree.addPerson("John", null, null); // Assuming John is the oldest ancestor
-        familyTree.addPerson("Mary", null, null);
-        familyTree.addPerson("Alice", "Mary", "John");
-        familyTree.addPerson("Bob", "Mary", "John");
-        familyTree.addPerson("Charlie", "Alice", null);
-        familyTree.addPerson("Diana", "Alice", null);
-        familyTree.addPerson("Ethan", null, "Charlie");
-
-        // Testing retrieval using HashMap
-        Person charlie = familyTree.getPerson("Charlie");
-        if (charlie != null) {
-            System.out.println("Found: " + charlie.getName());
-            System.out.println("Mother: " + charlie.getMother());
-            System.out.println("Father: " + charlie.getFather());
-
-            // Optionally, print children of Charlie if any
-            Array<Person> children = charlie.getChildren();
-            if (children.getSize() > 0) {
-                System.out.println("Children of Charlie:");
-                for (int i = 0; i < children.getSize(); i++) {
-                    System.out.println(children.get(i).getName());
-                }
-            } else {
-                System.out.println("Charlie has no children.");
-            }
-        } else {
-            System.out.println("Charlie not found in the family tree.");
-        }
-    }
-
     private Person root; // Root of the tree, typically the oldest ancestor
     private HashMap nameMap; // Custom hashmap for quick lookup
 
@@ -75,6 +41,53 @@ public class Tree {
         return nameMap.get(name);
     }
 
+    public Array<Person> getDescendants(String name) {
+        Person person = getPerson(name);
+        Array<Person> descendants = new Array<>();
+        if (person != null) {
+            getDescendantsRecursive(person, descendants);
+        }
+        return descendants;
+    }
+
+    private void getDescendantsRecursive(Person person, Array<Person> descendants) {
+        Array<Person> children = person.getChildren();
+        for (int i = 0; i < children.getSize(); i++) {
+            Person child = children.get(i);
+            descendants.add(child);
+            getDescendantsRecursive(child, descendants);
+        }
+    }
+
     // Similar methods for printing ancestors, etc.
+    public Array<Person> getAncestors(String name) {
+        Person person = getPerson(name);
+        Array<Person> ancestors = new Array<>();
+        if (person != null) {
+            getAncestorsRecursive(person, ancestors);
+        }
+        return ancestors;
+    }
+
+    private void getAncestorsRecursive(Person person, Array<Person> ancestors) {
+        String motherName = person.getMother();
+        String fatherName = person.getFather();
+
+        if (motherName != null) {
+            Person mother = getPerson(motherName);
+            if (mother != null) {
+                ancestors.add(mother);
+                getAncestorsRecursive(mother, ancestors);
+            }
+        }
+
+        if (fatherName != null) {
+            Person father = getPerson(fatherName);
+            if (father != null) {
+                ancestors.add(father);
+                getAncestorsRecursive(father, ancestors);
+            }
+        }
+    }
 
 }
