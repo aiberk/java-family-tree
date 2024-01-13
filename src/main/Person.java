@@ -33,6 +33,14 @@ public class Person {
         return father;
     }
 
+    public void setFather(String father) {
+        this.father = father;
+    }
+
+    public void setMother(String mother) {
+        this.mother = mother;
+    }
+
     @Override
     public String toString() {
         return name;
