@@ -1,16 +1,16 @@
 package main;
 
-public class Array {
-    private int[] items;
+public class Array<T> {
+    private Object[] items;
     private int size;
     private static final int INITIAL_SIZE = 10;
 
     public Array() {
-        items = new int[INITIAL_SIZE];
+        items = new Object[INITIAL_SIZE];
         size = 0;
     }
 
-    public void add(int item) {
+    public void add(T item) {
         if (size == items.length) {
             resize();
         }
@@ -19,7 +19,7 @@ public class Array {
     }
 
     private void resize() {
-        int[] newItems = new int[items.length * 2];
+        Object[] newItems = new Object[items.length * 2];
 
         for (int i = 0; i < items.length; i++) {
             newItems[i] = items[i];
@@ -28,16 +28,16 @@ public class Array {
         items = newItems;
     }
 
-    public int indexOf(int item) {
+    public int indexOf(T item) {
         for (int i = 0; i < size; i++) {
-            if (items[i] == item) {
+            if (item.equals(items[i])) {
                 return i;
             }
         }
         return -1;
     }
 
-    public boolean contains(int item) {
+    public boolean contains(T item) {
         return indexOf(item) != -1;
     }
 
@@ -45,11 +45,12 @@ public class Array {
         return size;
     }
 
-    public int get(int index) {
+    @SuppressWarnings("unchecked")
+    public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Invalid index");
         }
-        return items[index];
+        return (T) items[index];
     }
 
     @Override
