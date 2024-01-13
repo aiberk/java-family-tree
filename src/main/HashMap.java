@@ -14,6 +14,14 @@ public class HashMap {
         size = 0;
     }
 
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     private int getBucketIndex(String key, int probeCount) {
         int hashCode = key.hashCode();
         return Math.abs(hashCode + probeCount) % capacity;
@@ -52,6 +60,19 @@ public class HashMap {
         return null;
     }
 
+    public boolean containsKey(String key) {
+        int probeCount = 0;
+        int bucketIndex = getBucketIndex(key, probeCount);
+        while (buckets[bucketIndex] != null) {
+            if (buckets[bucketIndex].getKey() == key.hashCode()) {
+                return true;
+            }
+            probeCount++;
+            bucketIndex = getBucketIndex(key, probeCount);
+        }
+        return false;
+    }
+
     /**
      * Resizes the hash table when the load factor threshold is exceeded.
      * This method doubles the capacity of the hash table.
@@ -67,6 +88,33 @@ public class HashMap {
                 put(node.value.getName(), node.value);
             }
         }
+    }
+
+    public void print() {
+        for (HashMapNode node : buckets) {
+            if (node != null) {
+                System.out.println("Key: " + node.getKey() + ", Value: " + node.getValue());
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{");
+        boolean isFirst = true;
+        for (HashMapNode node : buckets) {
+            if (node != null) {
+                if (isFirst) {
+                    isFirst = false;
+                } else {
+                    builder.append(", ");
+                }
+                builder.append(node.getKey()).append(": ").append(node.getValue());
+            }
+        }
+        builder.append("}");
+        return builder.toString();
     }
 
 }
