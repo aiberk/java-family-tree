@@ -4,40 +4,51 @@ package main;
 //TODO: Make sure to first make all nodes from the first list, and then make connections. Otherwise, you might not be able to find a node
 public class Tree<T> {
 
-    private TreeNode root; // Root of the tree, typically the oldest ancestor
-    private HashMap nameMap; // Custom hashmap for quick lookup
+    private TreeNode<Person> root;
+    private HashMap nameMap;
 
-    public static void main(String[] args) {
-        HashMap nameMap = new HashMap(); // Initialize the HashMap
-        Tree familyTree = new Tree(nameMap); // Pass the HashMap to Tree
-        Person person = new Person("John", null, null);
-        Person person2 = new Person("Mary", null, null);
-        Person person3 = new Person("John I", null, null);
-        Person person4 = new Person("John II", null, null);
-        nameMap.put(person.getName(), person);
-        nameMap.put(person2.getName(), person2);
-        nameMap.put(person3.getName(), person3);
-        nameMap.put(person4.getName(), person4);
-
-        // Roots, children, grandchildren
-        familyTree.addPerson("John", "unknown", "unknown");
-        familyTree.addPerson("Mary", "unknown", "unknown");
-        familyTree.addPerson("John I", "Mary", "John");
-        familyTree.addPerson("John II", "Mary", "John");
-
+    public Tree() {
+        // Initialize the root if necessary
+        this.nameMap = new HashMap();
     }
 
-    // Constructor now accepts a HashMap
     public Tree(HashMap nameMap) {
-        this.nameMap = nameMap;
+        // TODO Auto-generated constructor stub
     }
 
     public void addPerson(String name, String motherName, String fatherName) {
+        TreeNode<Person> newPersonNode = new TreeNode<>(new Person(name, motherName, fatherName));
+        if (newPersonNode == null) {
+            newPersonNode = new TreeNode<>(new Person(name, motherName, fatherName));
+            nameMap.put(name, newPersonNode);
+        }
 
+        // Check and update the root if necessary
+        if (root == null) {
+            root = newPersonNode; // First person added becomes the root
+        }
+
+        TreeNode<Person> motherNode = findPersonNode(motherName);
+        if (motherNode != null) {
+            motherNode.addChild(newPersonNode);
+            newPersonNode.setMother(motherNode);
+        }
+
+        TreeNode<Person> fatherNode = findPersonNode(fatherName);
+        if (fatherNode != null) {
+            fatherNode.addChild(newPersonNode);
+            newPersonNode.setFather(fatherNode);
+        }
     }
 
-    public Person getPerson(String name) {
-        return nameMap.get(name);
+    private TreeNode<Person> findPersonNode(String name) {
+        // Implement logic to find a TreeNode<Person> by name
+        // This is where a HashMap would be useful for quick lookup
+        return null; // Placeholder
+    }
+
+    public TreeNode<Person> getRoot() {
+        return root;
     }
 
 }

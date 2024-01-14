@@ -68,6 +68,6 @@ public class HashMapTest {
         // Add some entries
         hashMap.put("Alice", new Person("Alice", "MotherAlice", "FatherAlice"));
         hashMap.put("Bob", new Person("Bob", "MotherBob", "FatherBob"));
-        assertEquals("{63350368: Alice, 66965: Bob}", hashMap.toString());
+        assertEquals("{Alice: Alice, Bob: Bob}", hashMap.toString());
     }
 }

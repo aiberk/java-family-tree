@@ -16,14 +16,14 @@ public class HashMapNodeTest {
     public void setUp() {
         person = new Person("Alice", "MotherName", "FatherName");
         hashKey = person.getName().hashCode(); // Simple hash for demonstration
-        node = new HashMapNode(hashKey, person);
+        node = new HashMapNode<Integer, Person>(hashKey, person);
     }
 
     @Test
     public void testConstructor() {
-        assertEquals(hashKey, node.key);
-        assertSame(person, node.value);
-        assertTrue(node.isActive);
+        assertEquals(hashKey, node.getKey());
+        assertSame(person, node.getValue());
+        assertTrue(node.isActive());
     }
 
     @Test
