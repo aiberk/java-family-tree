@@ -8,6 +8,19 @@ public class HashMap {
     private static final int INITIAL_CAPACITY = 16;
     private static final double LOAD_FACTOR_THRESHOLD = 0.75;
 
+    public static void main(String[] args) {
+        HashMap nameMap = new HashMap(); // Initialize the HashMap
+        Person person = new Person("John", "unknown", "unknown");
+        Person person2 = new Person("Mary", "unknown", "John");
+        Person person3 = new Person("John I", "Mary", "John");
+        Person person4 = new Person("John II", "Mary", "John");
+        nameMap.put(person.getName(), person);
+        nameMap.put(person2.getName(), person2);
+        nameMap.put(person3.getName(), person3);
+        nameMap.put(person4.getName(), person4);
+        nameMap.print();
+    }
+
     public HashMap() {
         capacity = INITIAL_CAPACITY;
         buckets = new HashMapNode[capacity];

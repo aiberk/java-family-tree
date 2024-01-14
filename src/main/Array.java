@@ -1,6 +1,9 @@
 package main;
 
-public class Array<T> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class Array<T> implements Iterable<T> {
     private Object[] items;
     private int size;
     private static final int INITIAL_SIZE = 10;
@@ -51,6 +54,29 @@ public class Array<T> {
             throw new IllegalArgumentException("Invalid index");
         }
         return (T) items[index];
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayIterator();
+    }
+
+    private class ArrayIterator implements Iterator<T> {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return (T) items[currentIndex++];
+        }
     }
 
     @Override

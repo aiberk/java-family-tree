@@ -86,3 +86,132 @@ Margaret Stuart
 Margaret
 unknown
 END
+
+
+
+
+
+
+
+public Array<Person> getDescendants(String name) {
+    Person person = getPerson(name);
+    Array<Person> descendants = new Array<>();
+    if (person != null) {
+        getDescendantsRecursive(person, descendants);
+    }
+    return descendants;
+}
+
+private void getDescendantsRecursive(Person person, Array<Person> descendants) {
+    Array<Person> children = person.getChildren();
+    for (int i = 0; i < children.getSize(); i++) {
+        Person child = children.get(i);
+        descendants.add(child);
+        getDescendantsRecursive(child, descendants);
+    }
+}
+
+// Similar methods for printing ancestors, etc.
+public Array<Person> getAncestors(String name) {
+    Person person = getPerson(name);
+    Array<Person> ancestors = new Array<>();
+    if (person != null) {
+        getAncestorsRecursive(person, ancestors);
+    }
+    return ancestors;
+}
+
+private void getAncestorsRecursive(Person person, Array<Person> ancestors) {
+    String motherName = person.getMother();
+    String fatherName = person.getFather();
+
+    if (motherName != null) {
+        Person mother = getPerson(motherName);
+        if (mother != null) {
+            ancestors.add(mother);
+            getAncestorsRecursive(mother, ancestors);
+        }
+    }
+
+    if (fatherName != null) {
+        Person father = getPerson(fatherName);
+        if (father != null) {
+            ancestors.add(father);
+            getAncestorsRecursive(father, ancestors);
+        }
+    }
+}
+
+
+
+
+
+
+package main;
+
+//TODO: Implement indententation for printing with sb
+//TODO: Make sure to first make all nodes from the first list, and then make connections. Otherwise, you might not be able to find a node
+public class Tree {
+
+    private Person root; // Root of the tree, typically the oldest ancestor
+    private HashMap nameMap; // Custom hashmap for quick lookup
+
+    public static void main(String[] args) {
+        HashMap nameMap = new HashMap(); // Initialize the HashMap
+        Tree familyTree = new Tree(nameMap); // Pass the HashMap to Tree
+        Person person = new Person("John", null, null);
+        Person person2 = new Person("Mary", null, null);
+        Person person3 = new Person("John I", null, null);
+        Person person4 = new Person("John II", null, null);
+        nameMap.put(person.getName(), person);
+        nameMap.put(person2.getName(), person2);
+        nameMap.put(person3.getName(), person3);
+        nameMap.put(person4.getName(), person4);
+
+        // Roots, children, grandchildren
+        familyTree.addPerson("John", "unknown", "unknown");
+        familyTree.addPerson("Mary", "unknown", "unknown");
+        familyTree.addPerson("John I", "Mary", "John");
+        familyTree.addPerson("John II", "Mary", "John");
+
+    }
+
+    // Constructor now accepts a HashMap
+    public Tree(HashMap nameMap) {
+        this.nameMap = nameMap;
+    }
+
+    public void addPerson(String name, String motherName, String fatherName) {
+        Person person = nameMap.get(name);
+        if (person == null) {
+            person = new Person(name, motherName, fatherName);
+            nameMap.put(name, person);
+        }
+
+        if (motherName != null) {
+            Person mother = nameMap.get(motherName);
+            if (mother == null) {
+                mother = new Person(motherName, null, null);
+                nameMap.put(motherName, mother);
+            }
+            mother.addChild(person);
+            person.setMother(motherName);
+        }
+
+        if (fatherName != null) {
+            Person father = nameMap.get(fatherName);
+            if (father == null) {
+                father = new Person(fatherName, null, null);
+                nameMap.put(fatherName, father);
+            }
+            father.addChild(person);
+            person.setFather(fatherName);
+        }
+
+    }
+
+    public Person getPerson(String name) {
+        return nameMap.get(name);
+    }
+
+}

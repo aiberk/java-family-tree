@@ -2,94 +2,42 @@ package main;
 
 //TODO: Implement indententation for printing with sb
 //TODO: Make sure to first make all nodes from the first list, and then make connections. Otherwise, you might not be able to find a node
-public class Tree {
+public class Tree<T> {
 
-    private Person root; // Root of the tree, typically the oldest ancestor
+    private TreeNode root; // Root of the tree, typically the oldest ancestor
     private HashMap nameMap; // Custom hashmap for quick lookup
 
-    public Tree() {
-        nameMap = new HashMap();
+    public static void main(String[] args) {
+        HashMap nameMap = new HashMap(); // Initialize the HashMap
+        Tree familyTree = new Tree(nameMap); // Pass the HashMap to Tree
+        Person person = new Person("John", null, null);
+        Person person2 = new Person("Mary", null, null);
+        Person person3 = new Person("John I", null, null);
+        Person person4 = new Person("John II", null, null);
+        nameMap.put(person.getName(), person);
+        nameMap.put(person2.getName(), person2);
+        nameMap.put(person3.getName(), person3);
+        nameMap.put(person4.getName(), person4);
+
+        // Roots, children, grandchildren
+        familyTree.addPerson("John", "unknown", "unknown");
+        familyTree.addPerson("Mary", "unknown", "unknown");
+        familyTree.addPerson("John I", "Mary", "John");
+        familyTree.addPerson("John II", "Mary", "John");
+
+    }
+
+    // Constructor now accepts a HashMap
+    public Tree(HashMap nameMap) {
+        this.nameMap = nameMap;
     }
 
     public void addPerson(String name, String motherName, String fatherName) {
-        Person mother = null;
-        Person father = null;
 
-        if (motherName != null) {
-            mother = nameMap.get(motherName);
-        }
-        if (fatherName != null) {
-            father = nameMap.get(fatherName);
-        }
-
-        Person person = new Person(name, motherName, fatherName);
-
-        if (mother != null) {
-            mother.addChild(person);
-        }
-        if (father != null) {
-            father.addChild(person);
-        }
-
-        // If the person has no parents, they could be a root
-        if (mother == null && father == null && root == null) {
-            root = person;
-        }
-
-        nameMap.put(name, person);
     }
 
     public Person getPerson(String name) {
         return nameMap.get(name);
-    }
-
-    public Array<Person> getDescendants(String name) {
-        Person person = getPerson(name);
-        Array<Person> descendants = new Array<>();
-        if (person != null) {
-            getDescendantsRecursive(person, descendants);
-        }
-        return descendants;
-    }
-
-    private void getDescendantsRecursive(Person person, Array<Person> descendants) {
-        Array<Person> children = person.getChildren();
-        for (int i = 0; i < children.getSize(); i++) {
-            Person child = children.get(i);
-            descendants.add(child);
-            getDescendantsRecursive(child, descendants);
-        }
-    }
-
-    // Similar methods for printing ancestors, etc.
-    public Array<Person> getAncestors(String name) {
-        Person person = getPerson(name);
-        Array<Person> ancestors = new Array<>();
-        if (person != null) {
-            getAncestorsRecursive(person, ancestors);
-        }
-        return ancestors;
-    }
-
-    private void getAncestorsRecursive(Person person, Array<Person> ancestors) {
-        String motherName = person.getMother();
-        String fatherName = person.getFather();
-
-        if (motherName != null) {
-            Person mother = getPerson(motherName);
-            if (mother != null) {
-                ancestors.add(mother);
-                getAncestorsRecursive(mother, ancestors);
-            }
-        }
-
-        if (fatherName != null) {
-            Person father = getPerson(fatherName);
-            if (father != null) {
-                ancestors.add(father);
-                getAncestorsRecursive(father, ancestors);
-            }
-        }
     }
 
 }
