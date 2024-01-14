@@ -17,8 +17,8 @@ public class Tree<T> {
         tree.addPerson("Jamie", "Mary II", "Martin");
         tree.addPerson("Jamie I", "Mary II", "Jamie");
 
-        tree.printAncestors("Martin");
-        tree.printDescendants("Martin");
+        tree.printAncestors("Jamie I");
+        tree.printDescendants("Jamie I");
 
     }
 
@@ -98,21 +98,32 @@ public class Tree<T> {
             return;
         }
         System.out.println("Ancestors of " + name + ":");
-        printAncestorsRecursive(node);
+        printAncestorsRecursive(node, 0); // Start with depth 0
     }
 
-    private void printAncestorsRecursive(TreeNode<Person> node) {
+    private void printAncestorsRecursive(TreeNode<Person> node, int depth) {
         if (node == null || (node.getMother() == null && node.getFather() == null))
             return;
+
+        // Increase depth for the next level of ancestors
+        int nextDepth = depth + 1;
+
         if (node.getMother() != null) {
+            printIndentation(nextDepth);
             System.out.println(node.getMother().getData().getName());
-            printAncestorsRecursive(node.getMother());
+            printAncestorsRecursive(node.getMother(), nextDepth);
         }
         if (node.getFather() != null) {
+            printIndentation(nextDepth);
             System.out.println(node.getFather().getData().getName());
-            printAncestorsRecursive(node.getFather());
+            printAncestorsRecursive(node.getFather(), nextDepth);
         }
+    }
 
+    private void printIndentation(int depth) {
+        for (int i = 0; i < depth; i++) {
+            System.out.print("  "); // Two spaces for each level of depth
+        }
     }
 
     public void printPersonDetails(String name) {
