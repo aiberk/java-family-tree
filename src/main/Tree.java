@@ -5,59 +5,69 @@ package main;
 public class Tree<T> {
 
     private Array<TreeNode<Person>> potentialRoots;
-    private HashMap nameMap;
+    private HashMap<String, TreeNode<Person>> nameMap;
 
     public static void main(String[] args) {
-        Tree<Person> tree = new Tree<>();
+        HashMap<String, TreeNode<Person>> familyMap = new HashMap<>();
+        Tree<Person> tree = new Tree<>(familyMap);
         tree.addPerson("John", null, null);
         tree.addPerson("Mary", null, null);
         tree.addPerson("Mary II", "Mary", "John");
         tree.addPerson("John II", "Mary", "John");
         tree.addPerson("Martin", "Mary II", "John II");
-        tree.addPerson("Jamie", "Mary II", "Martin");
-        tree.addPerson("Jamie I", "Mary II", "Jamie");
 
-        tree.printAncestors("Jamie I");
-        tree.printDescendants("Jamie I");
+        tree.addPerson("Jihn", null, null);
+        tree.addPerson("Miry", null, null);
+        tree.addPerson("Miry II", "Miry", "Jihn");
+        tree.addPerson("Jihn II", "Miry", "Jihn");
+        tree.addPerson("Mirtin", "Miry II", "Jihn II");
+
+        tree.addPerson("Mirtin II", "Mirtin", "Martin");
+
+        tree.printAncestors("John II");
+        // tree.printAncestors("Jihn II");
+        tree.printDescendants("John II");
+        // tree.printDescendants("Jihn II");
 
     }
 
-    public Tree() {
-
-        // Initialize the root if necessary
-        this.nameMap = new HashMap();
+    public Tree(HashMap<String, TreeNode<Person>> nameMap) {
+        this.nameMap = nameMap;
         this.potentialRoots = new Array<>();
     }
 
     public void addPerson(String name, String motherName, String fatherName) {
-        if (nameMap.containsKey(name)) {
-            // Person already exists in the tree, so no need to add again
-            return;
+        // Create or get the node for the person
+        TreeNode<Person> personNode = getOrCreateNode(name);
+
+        // Handle mother
+        if (motherName != null && !motherName.equalsIgnoreCase("unknown")) {
+            TreeNode<Person> motherNode = getOrCreateNode(motherName);
+            personNode.setMother(motherNode);
+            motherNode.addChild(personNode);
+        } else if (motherName == null || motherName.equalsIgnoreCase("unknown")) {
+            potentialRoots.add(personNode); // Add as a potential root if mother is unknown
         }
 
-        TreeNode<Person> newPersonNode = new TreeNode<>(new Person(name, motherName, fatherName));
-        nameMap.put(name, newPersonNode);
-
-        TreeNode<Person> motherNode = findPersonNode(motherName);
-        TreeNode<Person> fatherNode = findPersonNode(fatherName);
-
-        if (motherNode == null && fatherNode == null) {
-            // If the person has no known parents, add them to potential roots
-            potentialRoots.add(newPersonNode);
-        }
-
-        if (motherNode != null) {
-            motherNode.addChild(newPersonNode);
-            newPersonNode.setMother(motherNode);
-        }
-
-        if (fatherNode != null) {
-            fatherNode.addChild(newPersonNode);
-            newPersonNode.setFather(fatherNode);
+        // Handle father
+        if (fatherName != null && !fatherName.equalsIgnoreCase("unknown")) {
+            TreeNode<Person> fatherNode = getOrCreateNode(fatherName);
+            personNode.setFather(fatherNode);
+            fatherNode.addChild(personNode);
+        } else if (fatherName == null || fatherName.equalsIgnoreCase("unknown")) {
+            potentialRoots.add(personNode); // Add as a potential root if father is unknown
         }
     }
 
-    @SuppressWarnings("unchecked")
+    private TreeNode<Person> getOrCreateNode(String name) {
+        if (!nameMap.containsKey(name)) {
+            TreeNode<Person> newNode = new TreeNode<>(new Person(name, null, null));
+            nameMap.put(name, newNode);
+            return newNode;
+        }
+        return (TreeNode<Person>) nameMap.get(name);
+    }
+
     public TreeNode<Person> findPersonNode(String name) {
         if (name == null) {
             return null;
