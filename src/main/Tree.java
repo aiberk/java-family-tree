@@ -10,12 +10,16 @@ public class Tree<T> {
     public static void main(String[] args) {
         Tree<Person> tree = new Tree<>();
         tree.addPerson("John", null, null);
-        tree.addPerson("Mary", null, "John");
-        tree.addPerson("Alice", "Mary", "John");
+        tree.addPerson("Mary", null, null);
+        tree.addPerson("Mary II", "Mary", "John");
+        tree.addPerson("John II", "Mary", "John");
+        tree.addPerson("Martin", "Mary II", "John II");
+        tree.addPerson("Jamie", "Mary II", "Martin");
+        tree.addPerson("Jamie I", "Mary II", "Jamie");
 
-        tree.printPersonDetails("John");
-        tree.printPersonDetails("Mary");
-        tree.printPersonDetails("Alice");
+        tree.printAncestors("Martin");
+        tree.printDescendants("Martin");
+
     }
 
     public Tree() {
@@ -23,10 +27,6 @@ public class Tree<T> {
         // Initialize the root if necessary
         this.nameMap = new HashMap();
         this.potentialRoots = new Array<>();
-    }
-
-    public Tree(HashMap nameMap) {
-        // TODO Auto-generated constructor stub
     }
 
     public void addPerson(String name, String motherName, String fatherName) {
@@ -67,6 +67,52 @@ public class Tree<T> {
 
     public Array<TreeNode<Person>> getPotentialRoots() {
         return potentialRoots;
+    }
+
+    public void printDescendants(String name) {
+        TreeNode<Person> node = findPersonNode(name);
+        if (node == null) {
+            System.out.println("Person not found in the tree.");
+            return;
+        }
+        System.out.println("Descendants of " + name + ":");
+        printDescendantsRecursive(node, 0);
+    }
+
+    private void printDescendantsRecursive(TreeNode<Person> node, int level) {
+        if (node == null)
+            return;
+        for (TreeNode<Person> child : node.getChildren()) {
+            for (int i = 0; i < level; i++) {
+                System.out.print("  "); // Indentation for readability
+            }
+            System.out.println(child.getData().getName());
+            printDescendantsRecursive(child, level + 1);
+        }
+    }
+
+    public void printAncestors(String name) {
+        TreeNode<Person> node = findPersonNode(name);
+        if (node == null) {
+            System.out.println("Person not found in the tree.");
+            return;
+        }
+        System.out.println("Ancestors of " + name + ":");
+        printAncestorsRecursive(node);
+    }
+
+    private void printAncestorsRecursive(TreeNode<Person> node) {
+        if (node == null || (node.getMother() == null && node.getFather() == null))
+            return;
+        if (node.getMother() != null) {
+            System.out.println(node.getMother().getData().getName());
+            printAncestorsRecursive(node.getMother());
+        }
+        if (node.getFather() != null) {
+            System.out.println(node.getFather().getData().getName());
+            printAncestorsRecursive(node.getFather());
+        }
+
     }
 
     public void printPersonDetails(String name) {
