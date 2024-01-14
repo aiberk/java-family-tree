@@ -1,8 +1,8 @@
 package main;
 
 // TODO: Implement custom hash function
-public class HashMap {
-    private HashMapNode<String, Object>[] buckets;
+public class HashMap<K, V> {
+    private HashMapNode<K, V>[] buckets;
     private int capacity;
     private int size;
     private static final int INITIAL_CAPACITY = 16;
@@ -11,7 +11,7 @@ public class HashMap {
     @SuppressWarnings("unchecked")
     public HashMap() {
         capacity = INITIAL_CAPACITY;
-        buckets = (HashMapNode<String, Object>[]) new HashMapNode[capacity];
+        buckets = (HashMapNode<K, V>[]) new HashMapNode[capacity];
         size = 0;
     }
 
@@ -23,12 +23,12 @@ public class HashMap {
         return size == 0;
     }
 
-    private int getBucketIndex(String key, int probeCount) {
+    private int getBucketIndex(K key, int probeCount) {
         int hashCode = key.hashCode();
         return Math.abs(hashCode + probeCount) % capacity;
     }
 
-    public void put(String key, Object value) {
+    public void put(K key, V value) {
         if ((double) size / capacity >= LOAD_FACTOR_THRESHOLD) {
             resize();
         }
@@ -48,7 +48,7 @@ public class HashMap {
         }
     }
 
-    public Object get(String key) {
+    public V get(K key) {
         int probeCount = 0;
         int bucketIndex = getBucketIndex(key, probeCount);
         while (buckets[bucketIndex] != null) {
@@ -61,7 +61,7 @@ public class HashMap {
         return null;
     }
 
-    public boolean containsKey(String key) {
+    public boolean containsKey(K key) {
         int probeCount = 0;
         int bucketIndex = getBucketIndex(key, probeCount);
         while (buckets[bucketIndex] != null) {
@@ -81,11 +81,11 @@ public class HashMap {
     @SuppressWarnings("unchecked")
     private void resize() {
         int newCapacity = capacity * 2;
-        HashMapNode<String, Object>[] oldBuckets = buckets;
-        buckets = (HashMapNode<String, Object>[]) new HashMapNode[newCapacity];
+        HashMapNode<K, V>[] oldBuckets = buckets;
+        buckets = (HashMapNode<K, V>[]) new HashMapNode[newCapacity];
         capacity = newCapacity;
         size = 0;
-        for (HashMapNode<String, Object> node : oldBuckets) {
+        for (HashMapNode<K, V> node : oldBuckets) {
             if (node != null) {
                 put(node.getKey(), node.getValue());
             }
@@ -93,7 +93,7 @@ public class HashMap {
     }
 
     public void print() {
-        for (HashMapNode<String, Object> node : buckets) {
+        for (HashMapNode<K, V> node : buckets) {
             if (node != null) {
                 System.out.println("Key: " + node.getKey() + ", Value: " + node.getValue());
             }
@@ -105,7 +105,7 @@ public class HashMap {
         StringBuilder builder = new StringBuilder();
         builder.append("{");
         boolean isFirst = true;
-        for (HashMapNode<String, Object> node : buckets) {
+        for (HashMapNode<K, V> node : buckets) {
             if (node != null) {
                 if (isFirst) {
                     isFirst = false;

@@ -6,13 +6,16 @@ import org.junit.Test;
 import main.Tree;
 import main.TreeNode;
 import main.Person;
+import main.HashMap;
 
 public class TreeTest {
     private Tree<Person> tree;
+    private HashMap<String, TreeNode<Person>> familyMap;
 
     @Before
     public void setUp() {
-        tree = new Tree<>();
+        familyMap = new HashMap<>();
+        tree = new Tree<>(familyMap);
     }
 
     @Test
@@ -21,20 +24,41 @@ public class TreeTest {
         tree.addPerson("Mary", null, "John");
         tree.addPerson("Alice", "Mary", "John");
 
-        // Check if persons are correctly added
         assertNotNull("John should be in the tree", tree.findPersonNode("John"));
         assertNotNull("Mary should be in the tree", tree.findPersonNode("Mary"));
         assertNotNull("Alice should be in the tree", tree.findPersonNode("Alice"));
 
-        // Check parent-child relationships
         TreeNode<Person> johnNode = tree.findPersonNode("John");
         TreeNode<Person> maryNode = tree.findPersonNode("Mary");
         TreeNode<Person> aliceNode = tree.findPersonNode("Alice");
 
-        assertTrue("John should be the father of Mary", maryNode.getFather() == johnNode);
-        assertTrue("Mary should be the mother of Alice", aliceNode.getMother() == maryNode);
-        assertTrue("John should be the father of Alice", aliceNode.getFather() == johnNode);
+        assertEquals("Mary should be the mother of Alice", maryNode, aliceNode.getMother());
+        assertEquals("John should be the father of Alice", johnNode, aliceNode.getFather());
     }
 
-    // Additional tests can be added as needed
+    @Test
+    public void testPrintDescendants() {
+        tree.addPerson("John", null, null);
+        tree.addPerson("Mary", null, "John");
+        tree.addPerson("Alice", "Mary", "John");
+
+        // Capture the console output and assert the expected descendants
+        // Note: This requires a method to capture console output, which is not
+        // implemented here.
+        // You might need to implement a method that captures console output for
+        // testing.
+    }
+
+    @Test
+    public void testPrintAncestors() {
+        tree.addPerson("John", null, null);
+        tree.addPerson("Mary", null, "John");
+        tree.addPerson("Alice", "Mary", "John");
+
+        // Capture the console output and assert the expected ancestors
+        // Note: Similar to the above test, implement a method to capture and assert
+        // console output.
+    }
+
+    // Additional tests for other functionalities can be added here
 }

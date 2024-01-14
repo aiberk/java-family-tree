@@ -6,6 +6,7 @@ import org.junit.Test;
 import main.HashMap;
 import main.Person;
 
+@SuppressWarnings("unchecked")
 public class HashMapTest {
 
     private HashMap hashMap;
