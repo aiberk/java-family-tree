@@ -1,7 +1,6 @@
 package main;
 
 //TODO: Implement indententation for printing with sb
-//TODO: Make sure to first make all nodes from the first list, and then make connections. Otherwise, you might not be able to find a node
 public class Tree<T> {
 
     private Array<TreeNode<Person>> potentialRoots;
@@ -23,17 +22,26 @@ public class Tree<T> {
         tree.addPerson("Mirtin", "Miry II", "Jihn II");
 
         tree.addPerson("Mirtin II", "Mirtin", "Martin");
+        tree.printPotentialRoots();
 
-        tree.printAncestors("John II");
+        // tree.printAncestors("John II");
         // tree.printAncestors("Jihn II");
-        tree.printDescendants("John II");
+        // tree.printDescendants("John II");
         // tree.printDescendants("Jihn II");
+
+        // System.out.println(tree);
 
     }
 
     public Tree(HashMap<String, TreeNode<Person>> nameMap) {
         this.nameMap = nameMap;
         this.potentialRoots = new Array<>();
+    }
+
+    public void printPotentialRoots() {
+        for (TreeNode<Person> root : potentialRoots) {
+            System.out.println(root.getData().getName());
+        }
     }
 
     public void addPerson(String name, String motherName, String fatherName) {
@@ -167,6 +175,35 @@ public class Tree<T> {
                 }
             }
             System.out.println(); // Newline after listing children
+        }
+    }
+
+    // @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (TreeNode<Person> root : potentialRoots) {
+            printTreeRecursive(root, 0, sb);
+        }
+        return sb.toString();
+    }
+
+    private void printTreeRecursive(TreeNode<Person> node, int level, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+
+        // Add indentation for each level
+        for (int i = 0; i < level; i++) {
+            sb.append("  ");
+        }
+
+        // Append the person's name
+        sb.append(node.getData().getName()).append("\n");
+        sb.append("\n");
+
+        // Recursively print children
+        for (TreeNode<Person> child : node.getChildren()) {
+            printTreeRecursive(child, level + 1, sb);
         }
     }
 

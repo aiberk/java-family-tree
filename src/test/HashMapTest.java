@@ -9,11 +9,12 @@ import main.Person;
 @SuppressWarnings("unchecked")
 public class HashMapTest {
 
+    @SuppressWarnings("rawtypes")
     private HashMap hashMap;
 
     @Before
     public void setUp() {
-        hashMap = new HashMap();
+        hashMap = new HashMap<>();
     }
 
     @Test

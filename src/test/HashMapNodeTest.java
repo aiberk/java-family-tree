@@ -8,6 +8,7 @@ import main.HashMapNode;
 
 public class HashMapNodeTest {
 
+    @SuppressWarnings("rawtypes")
     private HashMapNode node;
     private Person person;
     private int hashKey;
