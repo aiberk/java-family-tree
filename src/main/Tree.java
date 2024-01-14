@@ -17,17 +17,24 @@ public class Tree<T> {
     }
 
     public void addPerson(String name, String motherName, String fatherName) {
+        // Check if the person is already in the HashMap
+        if (nameMap.containsKey(name)) {
+            // Person already exists in the tree, so no need to add again
+            return;
+        }
+
+        // Create a new TreeNode for the person
         TreeNode<Person> newPersonNode = new TreeNode<>(new Person(name, motherName, fatherName));
-        if (newPersonNode == null) {
-            newPersonNode = new TreeNode<>(new Person(name, motherName, fatherName));
-            nameMap.put(name, newPersonNode);
-        }
 
-        // Check and update the root if necessary
+        // Set the root if it's not already set
         if (root == null) {
-            root = newPersonNode; // First person added becomes the root
+            root = newPersonNode;
         }
 
+        // Add the new person node to the HashMap
+        nameMap.put(name, newPersonNode);
+
+        // Link the person to their mother and father if they exist
         TreeNode<Person> motherNode = findPersonNode(motherName);
         if (motherNode != null) {
             motherNode.addChild(newPersonNode);
@@ -41,10 +48,12 @@ public class Tree<T> {
         }
     }
 
-    private TreeNode<Person> findPersonNode(String name) {
-        // Implement logic to find a TreeNode<Person> by name
-        // This is where a HashMap would be useful for quick lookup
-        return null; // Placeholder
+    @SuppressWarnings("unchecked")
+    public TreeNode<Person> findPersonNode(String name) {
+        if (name == null) {
+            return null;
+        }
+        return (TreeNode<Person>) nameMap.get(name); // Retrieve the node from the HashMap
     }
 
     public TreeNode<Person> getRoot() {
