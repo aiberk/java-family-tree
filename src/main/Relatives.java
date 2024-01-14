@@ -4,10 +4,12 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Relatives {
+    private HashMap<String, TreeNode<Person>> nameMap;
     private Tree<Person> familyTree;
 
     public Relatives() {
-
+        nameMap = new HashMap<>();
+        familyTree = new Tree<>(nameMap);
     }
 
     public void processFile(String filePath) {
@@ -23,8 +25,11 @@ public class Relatives {
                 }
 
                 if (!processingRelationships) {
-                    // Add each individual with null parents
+                    // Add each individual with null parents to the tree and hashmap
                     familyTree.addPerson(line, null, null);
+
+                    // TreeNode<Person> newNode = new TreeNode<>(new Person(line, null, null));
+                    // nameMap.put(line, newNode);
                 } else {
                     // Establish relationships
                     String[] parts = line.split(" ");
@@ -42,30 +47,24 @@ public class Relatives {
     }
 
     public static void main(String[] args) {
-        // Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        Relatives relatives = new Relatives();
 
-        // // Create a Relatives instance
-        // Relatives relatives = new Relatives();
+        System.out.print("Enter the path to the text file: ");
+        String filePath = scanner.nextLine();
+        relatives.processFile(filePath);
 
-        // // Prompt the user for the path to the text file
-        // System.out.print("Enter the path to the text file: ");
-        // String filePath = scanner.nextLine();
-
-        // // Process the file
-        // relatives.processFile(filePath);
-
-        // // Now you can add more user interaction here, like asking for a name and
-        // // printing the tree
-        // // Example: Print descendants of a person
-        // System.out.print("Enter a name to see their descendants: ");
-        // String name = scanner.nextLine();
-        // Array<Person> descendants = relatives.familyTree.getDescendants(name);
+        System.out.print("Enter a name to see their descendants: ");
+        String name = scanner.nextLine();
+        relatives.familyTree.printDescendants(name);
+        relatives.familyTree.printAncestors(name);
+        // Array<Person> descendants = relatives.familyTree.printDescendants(name);
         // System.out.println("Descendants of " + name + ":");
         // for (Person descendant : descendants) {
         // System.out.println(descendant.getName());
         // }
+        System.out.println(relatives.familyTree.toString());
 
-        // // Close the scanner
-        // scanner.close();
+        scanner.close();
     }
 }
