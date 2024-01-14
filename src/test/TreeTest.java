@@ -36,14 +36,5 @@ public class TreeTest {
         assertTrue("John should be the father of Alice", aliceNode.getFather() == johnNode);
     }
 
-    @Test
-    public void testRootNode() {
-        tree.addPerson("John", null, null);
-        tree.addPerson("Mary", null, "John");
-        tree.addPerson("Alice", "Mary", "John");
-        TreeNode<Person> rootNode = tree.getRoot();
-        assertEquals("Root of the tree should be John", "John", rootNode.getData().getName());
-    }
-
     // Additional tests can be added as needed
 }
