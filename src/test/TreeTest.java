@@ -6,36 +6,46 @@ import org.junit.Test;
 import main.Tree;
 import main.Array;
 import main.Person;
+import main.HashMap; // Import your custom HashMap class
 
 public class TreeTest {
 
     private Tree familyTree;
+    private HashMap nameMap; // Declare a HashMap instance
 
     @Before
     public void setUp() {
-        familyTree = new Tree();
-        // Roots, children, grandchildren
+        nameMap = new HashMap(); // Initialize the HashMap
+        familyTree = new Tree(nameMap); // Pass the HashMap to Tree
+        Person person = new Person("John", "unknown", "unknown");
+        Person person2 = new Person("Mary", "unknown", "John");
+        Person person3 = new Person("John I", "Mary", "John");
+        Person person4 = new Person("John II", "Mary", "John");
+        nameMap.put(person.getName(), person);
+        nameMap.put(person2.getName(), person2);
+        nameMap.put(person3.getName(), person3);
+        nameMap.put(person4.getName(), person4);
 
-        familyTree.addPerson("Mary", "Anotnella", "John");
+        // Roots, children, grandchildren
+        familyTree.addPerson("Mary", "Antonella", "John");
         familyTree.addPerson("Alice", "Mary", "Joe");
         familyTree.addPerson("Bob", "Alice", "Unknown");
     }
 
     @Test
     public void testAddingPersons() {
-        assertNotNull("John should be in the tree", familyTree.getPerson("John"));
-        assertNotNull("Alice should be in the tree", familyTree.getPerson("Alice"));
+        fail("Implement this test");
     }
 
     @Test
     public void testGetDescendants() {
-        Array<Person> descendantsOfJohn = familyTree.getDescendants("John");
-        assertEquals("John should have 2 descendants", 2, descendantsOfJohn.getSize());
+        fail("Implement this test");
+
     }
 
     @Test
     public void testGetAncestors() {
-        Array<Person> ancestorsOfAlice = familyTree.getAncestors("Alice");
-        assertEquals("Alice should have 2 ancestors", 2, ancestorsOfAlice.getSize());
+        fail("Implement this test");
+
     }
 }
