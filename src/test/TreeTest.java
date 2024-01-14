@@ -4,48 +4,46 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import main.Tree;
-import main.Array;
+import main.TreeNode;
 import main.Person;
-import main.HashMap; // Import your custom HashMap class
 
 public class TreeTest {
-
-    private Tree familyTree;
-    private HashMap nameMap; // Declare a HashMap instance
+    private Tree<Person> tree;
 
     @Before
     public void setUp() {
-        nameMap = new HashMap(); // Initialize the HashMap
-        familyTree = new Tree(nameMap); // Pass the HashMap to Tree
-        Person person = new Person("John", "unknown", "unknown");
-        Person person2 = new Person("Mary", "unknown", "John");
-        Person person3 = new Person("John I", "Mary", "John");
-        Person person4 = new Person("John II", "Mary", "John");
-        nameMap.put(person.getName(), person);
-        nameMap.put(person2.getName(), person2);
-        nameMap.put(person3.getName(), person3);
-        nameMap.put(person4.getName(), person4);
-
-        // Roots, children, grandchildren
-        familyTree.addPerson("Mary", "Antonella", "John");
-        familyTree.addPerson("Alice", "Mary", "Joe");
-        familyTree.addPerson("Bob", "Alice", "Unknown");
+        tree = new Tree<>();
     }
 
     @Test
-    public void testAddingPersons() {
-        fail("Implement this test");
+    public void testAddPersonAndFindPersonNode() {
+        tree.addPerson("John", null, null);
+        tree.addPerson("Mary", null, "John");
+        tree.addPerson("Alice", "Mary", "John");
+
+        // Check if persons are correctly added
+        assertNotNull("John should be in the tree", tree.findPersonNode("John"));
+        assertNotNull("Mary should be in the tree", tree.findPersonNode("Mary"));
+        assertNotNull("Alice should be in the tree", tree.findPersonNode("Alice"));
+
+        // Check parent-child relationships
+        TreeNode<Person> johnNode = tree.findPersonNode("John");
+        TreeNode<Person> maryNode = tree.findPersonNode("Mary");
+        TreeNode<Person> aliceNode = tree.findPersonNode("Alice");
+
+        assertTrue("John should be the father of Mary", maryNode.getFather() == johnNode);
+        assertTrue("Mary should be the mother of Alice", aliceNode.getMother() == maryNode);
+        assertTrue("John should be the father of Alice", aliceNode.getFather() == johnNode);
     }
 
     @Test
-    public void testGetDescendants() {
-        fail("Implement this test");
-
+    public void testRootNode() {
+        tree.addPerson("John", null, null);
+        tree.addPerson("Mary", null, "John");
+        tree.addPerson("Alice", "Mary", "John");
+        TreeNode<Person> rootNode = tree.getRoot();
+        assertEquals("Root of the tree should be John", "John", rootNode.getData().getName());
     }
 
-    @Test
-    public void testGetAncestors() {
-        fail("Implement this test");
-
-    }
+    // Additional tests can be added as needed
 }
