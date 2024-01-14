@@ -9,7 +9,9 @@ import main.Array;
 public class PersonTest {
 
     private Person person;
+    @SuppressWarnings("unused")
     private Person mother;
+    @SuppressWarnings("unused")
     private Person father;
     private Person child;
 
