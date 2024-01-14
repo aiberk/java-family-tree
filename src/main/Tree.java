@@ -4,12 +4,25 @@ package main;
 //TODO: Make sure to first make all nodes from the first list, and then make connections. Otherwise, you might not be able to find a node
 public class Tree<T> {
 
-    private TreeNode<Person> root;
+    private Array<TreeNode<Person>> potentialRoots;
     private HashMap nameMap;
 
+    public static void main(String[] args) {
+        Tree<Person> tree = new Tree<>();
+        tree.addPerson("John", null, null);
+        tree.addPerson("Mary", null, "John");
+        tree.addPerson("Alice", "Mary", "John");
+
+        tree.printPersonDetails("John");
+        tree.printPersonDetails("Mary");
+        tree.printPersonDetails("Alice");
+    }
+
     public Tree() {
+
         // Initialize the root if necessary
         this.nameMap = new HashMap();
+        this.potentialRoots = new Array<>();
     }
 
     public Tree(HashMap nameMap) {
@@ -17,31 +30,27 @@ public class Tree<T> {
     }
 
     public void addPerson(String name, String motherName, String fatherName) {
-        // Check if the person is already in the HashMap
         if (nameMap.containsKey(name)) {
             // Person already exists in the tree, so no need to add again
             return;
         }
 
-        // Create a new TreeNode for the person
         TreeNode<Person> newPersonNode = new TreeNode<>(new Person(name, motherName, fatherName));
-
-        // Set the root if it's not already set
-        if (root == null) {
-            root = newPersonNode;
-        }
-
-        // Add the new person node to the HashMap
         nameMap.put(name, newPersonNode);
 
-        // Link the person to their mother and father if they exist
         TreeNode<Person> motherNode = findPersonNode(motherName);
+        TreeNode<Person> fatherNode = findPersonNode(fatherName);
+
+        if (motherNode == null && fatherNode == null) {
+            // If the person has no known parents, add them to potential roots
+            potentialRoots.add(newPersonNode);
+        }
+
         if (motherNode != null) {
             motherNode.addChild(newPersonNode);
             newPersonNode.setMother(motherNode);
         }
 
-        TreeNode<Person> fatherNode = findPersonNode(fatherName);
         if (fatherNode != null) {
             fatherNode.addChild(newPersonNode);
             newPersonNode.setFather(fatherNode);
@@ -53,11 +62,45 @@ public class Tree<T> {
         if (name == null) {
             return null;
         }
-        return (TreeNode<Person>) nameMap.get(name); // Retrieve the node from the HashMap
+        return (TreeNode<Person>) nameMap.get(name);
     }
 
-    public TreeNode<Person> getRoot() {
-        return root;
+    public Array<TreeNode<Person>> getPotentialRoots() {
+        return potentialRoots;
+    }
+
+    public void printPersonDetails(String name) {
+        TreeNode<Person> node = findPersonNode(name);
+        if (node == null) {
+            System.out.println("Person not found in the tree.");
+            return;
+        }
+
+        Person person = node.getData();
+        System.out.println("Person: " + person.getName());
+
+        // Print mother's name
+        String motherName = (node.getMother() != null) ? node.getMother().getData().getName() : "Unknown";
+        System.out.println("Mother: " + motherName);
+
+        // Print father's name
+        String fatherName = (node.getFather() != null) ? node.getFather().getData().getName() : "Unknown";
+        System.out.println("Father: " + fatherName);
+
+        // Print children's names
+        System.out.print("Children: ");
+        if (node.getChildren().getSize() == 0) {
+            System.out.println("None");
+        } else {
+            for (int i = 0; i < node.getChildren().getSize(); i++) {
+                TreeNode<Person> childNode = node.getChildren().get(i);
+                System.out.print(childNode.getData().getName());
+                if (i < node.getChildren().getSize() - 1) {
+                    System.out.print(", ");
+                }
+            }
+            System.out.println(); // Newline after listing children
+        }
     }
 
 }
