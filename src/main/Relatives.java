@@ -2,10 +2,9 @@ package main;
 
 import java.io.*;
 import java.util.Scanner;
-import java.util.HashMap;
 
 public class Relatives {
-    private Tree familyTree;
+    private Tree<Person> familyTree;
 
     public Relatives() {
 
