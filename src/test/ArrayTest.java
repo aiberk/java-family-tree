@@ -71,5 +71,4 @@ public class ArrayTest {
         array.get(0);
     }
 
-    // Additional tests for resize functionality can be added if needed
 }

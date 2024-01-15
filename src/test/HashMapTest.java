@@ -67,7 +67,6 @@ public class HashMapTest {
 
     @Test
     public void testToString() {
-        // Add some entries
         hashMap.put("Alice", new Person("Alice", "MotherAlice", "FatherAlice"));
         hashMap.put("Bob", new Person("Bob", "MotherBob", "FatherBob"));
         assertEquals("{Alice: Alice, Bob: Bob}", hashMap.toString());
