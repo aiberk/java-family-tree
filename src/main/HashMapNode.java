@@ -13,8 +13,6 @@ public class HashMapNode<K, V> {
         this.next = null;
     }
 
-    // Getter and setter methods
-
     public K getKey() {
         return key;
     }

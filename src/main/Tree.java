@@ -178,7 +178,7 @@ public class Tree<T> {
         }
     }
 
-    // @Override
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (TreeNode<Person> root : potentialRoots) {

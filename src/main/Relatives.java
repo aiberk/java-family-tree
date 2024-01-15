@@ -63,7 +63,7 @@ public class Relatives {
         // for (Person descendant : descendants) {
         // System.out.println(descendant.getName());
         // }
-        System.out.println(relatives.familyTree.toString());
+        // System.out.println(relatives.familyTree.toString());
 
         scanner.close();
     }
