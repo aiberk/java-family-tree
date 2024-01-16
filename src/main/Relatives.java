@@ -25,18 +25,20 @@ public class Relatives {
                 }
 
                 if (!processingRelationships) {
-                    // Add each individual with null parents to the tree and hashmap
+                    // Add each individual with null parents to the tree
                     familyTree.addPerson(line, null, null);
-
-                    // TreeNode<Person> newNode = new TreeNode<>(new Person(line, null, null));
-                    // nameMap.put(line, newNode);
                 } else {
                     // Establish relationships
                     String[] parts = line.split(" ");
                     String childName = parts[0];
                     String motherName = parts.length > 1 ? parts[1] : null;
                     String fatherName = parts.length > 2 ? parts[2] : null;
-                    familyTree.addPerson(childName, motherName, fatherName);
+
+                    if (!familyTree.personExists(childName)) {
+                        familyTree.addPerson(childName, motherName, fatherName);
+                    } else {
+                        familyTree.updatePersonParents(childName, motherName, fatherName);
+                    }
                 }
             }
 
@@ -55,15 +57,15 @@ public class Relatives {
         relatives.processFile(filePath);
 
         System.out.print("Enter a name to see their descendants: ");
-        String name = scanner.nextLine();
-        relatives.familyTree.printDescendants(name);
-        relatives.familyTree.printAncestors(name);
+        // String name = scanner.nextLine();
+        // relatives.familyTree.printDescendants(name);
+        // relatives.familyTree.printAncestors(name);
         // Array<Person> descendants = relatives.familyTree.printDescendants(name);
         // System.out.println("Descendants of " + name + ":");
         // for (Person descendant : descendants) {
         // System.out.println(descendant.getName());
         // }
-        // System.out.println(relatives.familyTree.toString());
+        System.out.println(relatives.familyTree.toString());
 
         scanner.close();
     }
