@@ -144,6 +144,32 @@ public class Tree<T> {
         }
     }
 
+    public void updatePersonParents(String name, String motherName, String fatherName) {
+        if (!personExists(name)) {
+            return; // Person does not exist, so nothing to update
+        }
+
+        TreeNode<Person> personNode = nameMap.get(name);
+
+        // Update mother
+        if (motherName != null && !motherName.equalsIgnoreCase("unknown")) {
+            TreeNode<Person> motherNode = getOrCreateNode(motherName);
+            personNode.setMother(motherNode);
+            motherNode.addChild(personNode);
+        }
+
+        // Update father
+        if (fatherName != null && !fatherName.equalsIgnoreCase("unknown")) {
+            TreeNode<Person> fatherNode = getOrCreateNode(fatherName);
+            personNode.setFather(fatherNode);
+            fatherNode.addChild(personNode);
+        }
+    }
+
+    public boolean personExists(String name) {
+        return nameMap.containsKey(name);
+    }
+
     public void printPersonDetails(String name) {
         TreeNode<Person> node = findPersonNode(name);
         if (node == null) {
