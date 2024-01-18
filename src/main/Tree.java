@@ -91,36 +91,9 @@ public class Tree<T> {
 
     private void printIndentation(int depth) {
         for (int i = 0; i < depth; i++) {
-            System.out.print("  ");
+            System.out.print("   ");
         }
     }
-
-    // public void printAncestors(String name) {
-    // TreeNode<Person> node = findPersonNode(name);
-    // if (node == null) {
-    // System.out.println("Person not found in the tree.");
-    // return;
-    // }
-    // System.out.println(name);
-    // printAncestorsRecursive(node, 1);
-    // }
-
-    // private void printAncestorsRecursive(TreeNode<Person> node, int depth) {
-    // if (node == null || (node.getMother() == null && node.getFather() == null))
-    // return;
-    // int nextDepth = depth + 1;
-
-    // if (node.getMother() != null) {
-    // printIndentation(nextDepth);
-    // System.out.println(node.getMother().getData().getName());
-    // printAncestorsRecursive(node.getMother(), nextDepth);
-    // }
-    // if (node.getFather() != null) {
-    // printIndentation(nextDepth);
-    // System.out.println(node.getFather().getData().getName());
-    // printAncestorsRecursive(node.getFather(), nextDepth);
-    // }
-    // }
 
     public void printAncestors(String name) {
         TreeNode<Person> node = findPersonNode(name);
@@ -128,7 +101,7 @@ public class Tree<T> {
             System.out.println("Person not found in the tree.");
             return;
         }
-        System.out.println("Ancestors");
+        System.out.println("Ancestors:");
         printIndentation(1); // Indentation for the name
         System.out.println(name); // Print the name
         printAncestorsRecursive(node, 2); // Start ancestors with an indentation level of 2
@@ -227,7 +200,7 @@ public class Tree<T> {
 
         // Add indentation for each level
         for (int i = 0; i < level; i++) {
-            sb.append("  ");
+            sb.append("    ");
         }
 
         // Append the person's name
