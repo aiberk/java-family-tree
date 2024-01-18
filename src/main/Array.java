@@ -1,3 +1,12 @@
+/**
+     * A generic array data structure that dynamically resizes when needed.
+     * Known Bugs: None
+     *
+     * @author Abraham Iberkleid
+     * aiberkleid@brandeis.edu
+     * January 18, 2024
+     * COSI 21A PA0
+     */
 package main;
 
 import java.util.Iterator;

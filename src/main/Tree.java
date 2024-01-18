@@ -1,3 +1,12 @@
+/**
+     * Represents a family tree where each person is a node in the tree.
+     * The tree stores relationships between people, including parents and children.
+     * Known Bugs: None
+     * @author Abraham Iberkleid
+     * aiberkleid@brandeis.edu
+     * January 18, 2024
+     * COSI 21A PA0
+     */
 package main;
 
 /**

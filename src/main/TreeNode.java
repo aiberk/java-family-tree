@@ -1,3 +1,12 @@
+/**
+     * Represents a tree node with data, mother, father, and a list of children
+     * nodes.
+     * Known Bugs: None
+     * @author Abraham Iberkleid
+     * aiberkleid@brandeis.edu
+     * January 18, 2024
+     * COSI 21A PA0
+     */
 package main;
 
 /**
