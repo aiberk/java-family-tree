@@ -3,10 +3,23 @@ package main;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * The Relatives class manages a family tree by processing relationships from a
+ * file.
+ * It allows users to query ancestors and descendants of a person in the family
+ * tree.
+ */
 public class Relatives {
     private HashMap<String, TreeNode<Person>> nameMap;
     private Tree<Person> familyTree;
 
+    /**
+     * The main method to run the Relatives application.
+     * It prompts the user for a file path to process and allows querying of
+     * ancestors and descendants.
+     *
+     * @param args reuquires path name and person name.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Relatives relatives = new Relatives();
@@ -30,11 +43,20 @@ public class Relatives {
         scanner.close();
     }
 
+    /**
+     * Constructs a Relatives object with an empty name map and family tree.
+     */
     public Relatives() {
         nameMap = new HashMap<>();
         familyTree = new Tree<>(nameMap);
     }
 
+    /**
+     * Processes the specified file to build the family tree.
+     * The file should contain names of individuals followed by relationships.
+     *
+     * @param filePath The path of the file to be processed.
+     */
     public void processFile(String filePath) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
