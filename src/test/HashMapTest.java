@@ -31,12 +31,10 @@ public class HashMapTest {
 
     @Test
     public void testResize() {
-        // Fill the hashmap to trigger a resize
         for (int i = 0; i < 20; i++) {
             hashMap.put("Person" + i, new Person("Person" + i, "Mother" + i, "Father" + i));
         }
 
-        // Verify that all entries are still accessible after resize
         for (int i = 0; i < 20; i++) {
             assertNotNull(hashMap.get("Person" + i));
         }

@@ -41,25 +41,22 @@ public class Tree<T> {
      * @param fatherName The name of the person's father.
      */
     public void addPerson(String name, String motherName, String fatherName) {
-        // Create or get the node for the person
         TreeNode<Person> personNode = getOrCreateNode(name);
 
-        // Handle mother
         if (motherName != null && !motherName.equalsIgnoreCase("unknown")) {
             TreeNode<Person> motherNode = getOrCreateNode(motherName);
             personNode.setMother(motherNode);
             motherNode.addChild(personNode);
         } else if (motherName == null || motherName.equalsIgnoreCase("unknown")) {
-            potentialRoots.add(personNode); // Add as a potential root if mother is unknown
+            potentialRoots.add(personNode);
         }
 
-        // Handle father
         if (fatherName != null && !fatherName.equalsIgnoreCase("unknown")) {
             TreeNode<Person> fatherNode = getOrCreateNode(fatherName);
             personNode.setFather(fatherNode);
             fatherNode.addChild(personNode);
         } else if (fatherName == null || fatherName.equalsIgnoreCase("unknown")) {
-            potentialRoots.add(personNode); // Add as a potential root if father is unknown
+            potentialRoots.add(personNode);
         }
     }
 
@@ -160,9 +157,9 @@ public class Tree<T> {
             return;
         }
         System.out.println("Ancestors:");
-        printIndentation(1); // Indentation for the name
-        System.out.println(name); // Print the name
-        printAncestorsRecursive(node, 2); // Start ancestors with an indentation level of 2
+        printIndentation(1);
+        System.out.println(name);
+        printAncestorsRecursive(node, 2);
     }
 
     /**
@@ -207,14 +204,12 @@ public class Tree<T> {
 
         TreeNode<Person> personNode = nameMap.get(name);
 
-        // Update mother
         if (motherName != null && !motherName.equalsIgnoreCase("unknown")) {
             TreeNode<Person> motherNode = getOrCreateNode(motherName);
             personNode.setMother(motherNode);
             motherNode.addChild(personNode);
         }
 
-        // Update father
         if (fatherName != null && !fatherName.equalsIgnoreCase("unknown")) {
             TreeNode<Person> fatherNode = getOrCreateNode(fatherName);
             personNode.setFather(fatherNode);
@@ -248,15 +243,12 @@ public class Tree<T> {
         Person person = node.getData();
         System.out.println("Person: " + person.getName());
 
-        // Print mother's name
         String motherName = (node.getMother() != null) ? node.getMother().getData().getName() : "Unknown";
         System.out.println("Mother: " + motherName);
 
-        // Print father's name
         String fatherName = (node.getFather() != null) ? node.getFather().getData().getName() : "Unknown";
         System.out.println("Father: " + fatherName);
 
-        // Print children's names
         System.out.print("Children: ");
         if (node.getChildren().getSize() == 0) {
             System.out.println("None");
@@ -303,16 +295,13 @@ public class Tree<T> {
             return;
         }
 
-        // Add indentation for each level
         for (int i = 0; i < level; i++) {
             sb.append("    ");
         }
 
-        // Append the person's name
         sb.append(node.getData().getName()).append("\n");
         sb.append("\n");
 
-        // Recursively print children
         for (TreeNode<Person> child : node.getChildren()) {
             printTreeRecursive(child, level + 1, sb);
         }
