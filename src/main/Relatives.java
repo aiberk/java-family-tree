@@ -1,3 +1,14 @@
+/**
+     * The Relatives class manages a family tree by processing relationships from a
+     * file.
+     * It allows users to query ancestors and descendants of a person in the family
+     * tree.
+     * Known Bugs: None
+     * @author Abraham Iberkleid
+     * aiberkleid@brandeis.edu
+     * January 18, 2024
+     * COSI 21A PA0
+     */
 package main;
 
 import java.io.*;

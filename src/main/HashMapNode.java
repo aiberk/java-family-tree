@@ -1,3 +1,11 @@
+/**
+     * A node representing a key-value pair in a hash map.
+     * Known Bugs: None
+     * @author Abraham Iberkleid
+     * aiberkleid@brandeis.edu
+     * January 18, 2024
+     * COSI 21A PA0
+     */
 package main;
 
 /**

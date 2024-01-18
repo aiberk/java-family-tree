@@ -1,3 +1,11 @@
+/**
+     * Represents a person with a name, mother, father, and a list of children.
+     * Known Bugs: None
+     * @author Abraham Iberkleid
+     * aiberkleid@brandeis.edu
+     * January 18, 2024
+     * COSI 21A PA0
+     */
 package main;
 
 /**

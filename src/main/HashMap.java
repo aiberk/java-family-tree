@@ -1,3 +1,12 @@
+/**
+     * A custom implementation of a HashMap data structure.
+     * Known Bugs: None
+     *
+     * @author Abraham Iberkleid
+     * aiberkleid@brandeis.edu
+     * January 18, 2024
+     * COSI 21A PA0
+     */
 package main;
 
 /**
