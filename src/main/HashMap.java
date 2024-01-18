@@ -1,6 +1,5 @@
 package main;
 
-// TODO: Implement custom hash function
 public class HashMap<K, V> {
     private HashMapNode<K, V>[] buckets;
     private int capacity;

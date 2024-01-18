@@ -1,31 +1,9 @@
 package main;
 
-//TODO: Implement indententation for printing with sb
 public class Tree<T> {
 
     private Array<TreeNode<Person>> potentialRoots;
     private HashMap<String, TreeNode<Person>> nameMap;
-
-    public static void main(String[] args) {
-        HashMap<String, TreeNode<Person>> familyMap = new HashMap<>();
-        Tree<Person> tree = new Tree<>(familyMap);
-        tree.addPerson("John", "Jane", "Joe");
-        tree.addPerson("Mary", "Margaret", "James");
-        tree.addPerson("Mary II", "Mary", "John");
-        tree.addPerson("Jive", "Mory", "Jihn");
-        tree.addPerson("John II", "Mary", "John");
-        tree.addPerson("Martin", "Mary II", "Jive");
-
-        // tree.printPotentialRoots();
-
-        tree.printAncestors("Martin");
-
-        System.out.println("Descendants of John:");
-        tree.printDescendants("Joe");
-
-        // System.out.println(tree.toString());
-
-    }
 
     public Tree(HashMap<String, TreeNode<Person>> nameMap) {
         this.nameMap = nameMap;
@@ -103,7 +81,7 @@ public class Tree<T> {
             return;
         for (TreeNode<Person> child : node.getChildren()) {
             for (int i = 0; i < level; i++) {
-                System.out.print("  "); // Indentation for readability
+                System.out.print("  ");
             }
             System.out.println(child.getData().getName());
             printDescendantsRecursive(child, level + 1);
@@ -117,14 +95,12 @@ public class Tree<T> {
             return;
         }
         System.out.println("Ancestors of " + name + ":");
-        printAncestorsRecursive(node, 0); // Start with depth 0
+        printAncestorsRecursive(node, 0);
     }
 
     private void printAncestorsRecursive(TreeNode<Person> node, int depth) {
         if (node == null || (node.getMother() == null && node.getFather() == null))
             return;
-
-        // Increase depth for the next level of ancestors
         int nextDepth = depth + 1;
 
         if (node.getMother() != null) {
@@ -141,13 +117,13 @@ public class Tree<T> {
 
     private void printIndentation(int depth) {
         for (int i = 0; i < depth; i++) {
-            System.out.print("  "); // Two spaces for each level of depth
+            System.out.print("  ");
         }
     }
 
     public void updatePersonParents(String name, String motherName, String fatherName) {
         if (!personExists(name)) {
-            return; // Person does not exist, so nothing to update
+            return;
         }
 
         TreeNode<Person> personNode = nameMap.get(name);
