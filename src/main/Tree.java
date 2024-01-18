@@ -72,7 +72,7 @@ public class Tree<T> {
             System.out.println("Person not found in the tree.");
             return;
         }
-        System.out.println("Descendants of " + name + ":");
+        System.out.println("Descendants:");
         printDescendantsRecursive(node, 0);
     }
 
@@ -94,7 +94,7 @@ public class Tree<T> {
             System.out.println("Person not found in the tree.");
             return;
         }
-        System.out.println("Ancestors of " + name + ":");
+        System.out.println("Ancestors:");
         printAncestorsRecursive(node, 0);
     }
 

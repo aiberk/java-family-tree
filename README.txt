@@ -1,25 +1,3 @@
-OBJ Checkpoints
-
-Clear and Consistent Abstraction
-Encapsulation
-Inheritance
-Polymorphism
-Loose Coupling
-High Cohesion
-Single Responsibility Principle
-Open/Closed Principle
-Liskov Substitution Principle
-Interface Segregation Principle
-Dependency Inversion Principle
-Use of Design Patterns
-Understandability and Maintainability
-Proper Documentation
-Testing
-Refactoring
-Consideration of Non-Functional Requirements
-Iterative Development
-Peer Review
-
 Recursive Calls
 
 I used recursion to print the descendants and ancestors of a person by using a tree structure
@@ -31,6 +9,8 @@ and then recursively call the function on each child.To get the ancestors, I nee
 of the node, and then recursively call the function on each of them. Both functions have a depth parameter that 
 is used to print the correct indentation for the tree structure and a null check as a base case. Finally both calls have helper funcitons that 
 print the correct information per the assignments requirements.
+
+Here are the recursive methods from tree class for your viewing convenience:
 
 public void printDescendants(String name) {
     TreeNode<Person> node = findPersonNode(name);
