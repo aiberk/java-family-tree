@@ -55,26 +55,14 @@ public class Relatives {
         Scanner scanner = new Scanner(System.in);
         Relatives relatives = new Relatives();
 
-        System.out.print("Enter the path to the text file: ");
+        System.out.print("What is the input file? ");
         String filePath = scanner.nextLine();
         relatives.processFile(filePath);
 
-        // System.out.print("Enter a name to see their descendants: ");
-        // String name = scanner.nextLine();
-        // relatives.familyTree.printDescendants(name);
-        // relatives.familyTree.printAncestors(name);
-
-        System.out.println("Margaret");
-        relatives.familyTree.printDescendants("Margaret");
-        relatives.familyTree.printAncestors("Margaret");
-        System.out.println(" ");
-        System.out.println("James VI & I");
-        relatives.familyTree.printDescendants("James VI & I");
-        relatives.familyTree.printAncestors("James VI & I");
-        System.out.println(" ");
-        System.out.println("Henry VII");
-        relatives.familyTree.printDescendants("Henry VII");
-        relatives.familyTree.printAncestors("Henry VII");
+        System.out.print("Person's name ('quit' to end)? ");
+        String name = scanner.nextLine();
+        relatives.familyTree.printAncestors(name);
+        relatives.familyTree.printDescendants(name);
 
         scanner.close();
     }
