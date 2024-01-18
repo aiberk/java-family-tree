@@ -3,16 +3,27 @@ package main;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * A generic array data structure that dynamically resizes when needed.
+ * @param <T> the type of elements stored in the array
+ */
 public class Array<T> implements Iterable<T> {
     private Object[] items;
     private int size;
     private static final int INITIAL_SIZE = 10;
 
+    /**
+     * Constructs an empty Array with an initial capacity of 10.
+     */
     public Array() {
         items = new Object[INITIAL_SIZE];
         size = 0;
     }
 
+    /**
+     * Adds an element to the end of the Array.
+     * @param item the element to add
+     */
     public void add(T item) {
         if (size == items.length) {
             resize();
@@ -21,6 +32,9 @@ public class Array<T> implements Iterable<T> {
         size++;
     }
 
+    /**
+     * Resizes the internal array to accommodate more elements.
+     */
     private void resize() {
         Object[] newItems = new Object[items.length * 2];
 
@@ -31,6 +45,11 @@ public class Array<T> implements Iterable<T> {
         items = newItems;
     }
 
+    /**
+     * Returns the index of the first occurrence of the specified element in the Array.
+     * @param item the element to search for
+     * @return the index of the element, or -1 if not found
+     */
     public int indexOf(T item) {
         for (int i = 0; i < size; i++) {
             if (item.equals(items[i])) {
@@ -40,14 +59,29 @@ public class Array<T> implements Iterable<T> {
         return -1;
     }
 
+    /**
+     * Checks if the Array contains the specified element.
+     * @param item the element to check for
+     * @return true if the element is found, false otherwise
+     */
     public boolean contains(T item) {
         return indexOf(item) != -1;
     }
 
+    /**
+     * Returns the number of elements in the Array.
+     * @return the size of the Array
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Returns the element at the specified index in the Array.
+     * @param index the index of the element to retrieve
+     * @return the element at the given index
+     * @throws IllegalArgumentException if the index is invalid
+     */
     @SuppressWarnings("unchecked")
     public T get(int index) {
         if (index < 0 || index >= size) {
@@ -99,3 +133,4 @@ public class Array<T> implements Iterable<T> {
         return sb.toString();
     }
 }
+
