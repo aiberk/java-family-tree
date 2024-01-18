@@ -1,5 +1,15 @@
-Recursive Calls
+# Project Title 
+Familly tree maker using recursion hashmaps and trees
 
+## Table of Contents
+
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Installing](#installing)
+- [Usage](#usage)
+- [Contributing](#contributing)
+
+## About
 I used recursion to print the descendants and ancestors of a person by using a tree structure
 to represent a family tree and a smooth road for node travesal. Also the tree is combined with a hashmap for O(1) lookup time. 
 I have two different recursive calls: one for printing the descendants and one for printing the ancestors.  
@@ -60,3 +70,22 @@ private void printAncestorsRecursive(TreeNode<Person> node, int depth) {
         printAncestorsRecursive(node.getFather(), nextDepth);
     }
 }
+
+## Getting Started
+git clone 
+
+
+## Installing
+Download and import into Eclipse or any other IDE
+
+
+## Usage
+Just run in the IDE and follow the prompts. 
+
+## Contributing
+Abraham Iberkleid
+
+
+
+
+
