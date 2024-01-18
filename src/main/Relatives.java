@@ -33,8 +33,8 @@ public class Relatives {
                     String motherName = bufferedReader.readLine();
                     String fatherName = bufferedReader.readLine();
 
-                    if (childName == null || motherName == null || fatherName == null) {
-                        break; // Exit if any of the lines is null (end of file or malformed file)
+                    if (childName == null || childName == "END" || motherName == null|| motherName == "END" || fatherName == null|| fatherName == "END") {
+                        break; 
                     }
 
                     if (!familyTree.personExists(childName)) {
