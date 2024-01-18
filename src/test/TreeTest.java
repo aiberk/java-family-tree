@@ -36,29 +36,4 @@ public class TreeTest {
         assertEquals("John should be the father of Alice", johnNode, aliceNode.getFather());
     }
 
-    @Test
-    public void testPrintDescendants() {
-        tree.addPerson("John", null, null);
-        tree.addPerson("Mary", null, "John");
-        tree.addPerson("Alice", "Mary", "John");
-
-        // Capture the console output and assert the expected descendants
-        // Note: This requires a method to capture console output, which is not
-        // implemented here.
-        // You might need to implement a method that captures console output for
-        // testing.
-    }
-
-    @Test
-    public void testPrintAncestors() {
-        tree.addPerson("John", null, null);
-        tree.addPerson("Mary", null, "John");
-        tree.addPerson("Alice", "Mary", "John");
-
-        // Capture the console output and assert the expected ancestors
-        // Note: Similar to the above test, implement a method to capture and assert
-        // console output.
-    }
-
-    // Additional tests for other functionalities can be added here
 }
