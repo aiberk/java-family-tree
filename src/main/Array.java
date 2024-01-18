@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 /**
  * A generic array data structure that dynamically resizes when needed.
+ * 
  * @param <T> the type of elements stored in the array
  */
 public class Array<T> implements Iterable<T> {
@@ -22,6 +23,7 @@ public class Array<T> implements Iterable<T> {
 
     /**
      * Adds an element to the end of the Array.
+     * 
      * @param item the element to add
      */
     public void add(T item) {
@@ -46,7 +48,9 @@ public class Array<T> implements Iterable<T> {
     }
 
     /**
-     * Returns the index of the first occurrence of the specified element in the Array.
+     * Returns the index of the first occurrence of the specified element in the
+     * Array.
+     * 
      * @param item the element to search for
      * @return the index of the element, or -1 if not found
      */
@@ -61,6 +65,7 @@ public class Array<T> implements Iterable<T> {
 
     /**
      * Checks if the Array contains the specified element.
+     * 
      * @param item the element to check for
      * @return true if the element is found, false otherwise
      */
@@ -70,6 +75,7 @@ public class Array<T> implements Iterable<T> {
 
     /**
      * Returns the number of elements in the Array.
+     * 
      * @return the size of the Array
      */
     public int getSize() {
@@ -78,6 +84,7 @@ public class Array<T> implements Iterable<T> {
 
     /**
      * Returns the element at the specified index in the Array.
+     * 
      * @param index the index of the element to retrieve
      * @return the element at the given index
      * @throws IllegalArgumentException if the index is invalid
@@ -90,6 +97,9 @@ public class Array<T> implements Iterable<T> {
         return (T) items[index];
     }
 
+    /**
+     * Iterator implementation to allow for-each loops over the custom Array class.
+     */
     @Override
     public Iterator<T> iterator() {
         return new ArrayIterator();
@@ -113,6 +123,9 @@ public class Array<T> implements Iterable<T> {
         }
     }
 
+    /**
+     * Returns a string representation of the Array.
+     */
     @Override
     public String toString() {
         if (size == 0) {
@@ -133,4 +146,3 @@ public class Array<T> implements Iterable<T> {
         return sb.toString();
     }
 }
-
