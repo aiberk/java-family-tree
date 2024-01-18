@@ -9,27 +9,21 @@ public class Tree<T> {
     public static void main(String[] args) {
         HashMap<String, TreeNode<Person>> familyMap = new HashMap<>();
         Tree<Person> tree = new Tree<>(familyMap);
-        tree.addPerson("John", null, null);
-        tree.addPerson("Mary", null, null);
+        tree.addPerson("John", "Jane", "Joe");
+        tree.addPerson("Mary", "Margaret", "James");
         tree.addPerson("Mary II", "Mary", "John");
+        tree.addPerson("Jive", "Mory", "Jihn");
         tree.addPerson("John II", "Mary", "John");
-        tree.addPerson("Martin", "Mary II", "John II");
+        tree.addPerson("Martin", "Mary II", "Jive");
 
-        tree.addPerson("Jihn", null, null);
-        tree.addPerson("Miry", null, null);
-        tree.addPerson("Miry II", "Miry", "Jihn");
-        tree.addPerson("Jihn II", "Miry", "Jihn");
-        tree.addPerson("Mirtin", "Miry II", "Jihn II");
+        // tree.printPotentialRoots();
 
-        tree.addPerson("Mirtin II", "Mirtin", "Martin");
-        tree.printPotentialRoots();
+        tree.printAncestors("Martin");
 
-        // tree.printAncestors("John II");
-        // tree.printAncestors("Jihn II");
-        // tree.printDescendants("John II");
-        // tree.printDescendants("Jihn II");
+        System.out.println("Descendants of John:");
+        tree.printDescendants("Joe");
 
-        // System.out.println(tree);
+        // System.out.println(tree.toString());
 
     }
 
@@ -76,6 +70,13 @@ public class Tree<T> {
         return (TreeNode<Person>) nameMap.get(name);
     }
 
+    /**
+     * Finds the node for the person with the given name.
+     * 
+     * @param name The name of the person to find.
+     * @return The node for the person with the given name, or null if the person
+     *         does not exist.
+     */
     public TreeNode<Person> findPersonNode(String name) {
         if (name == null) {
             return null;

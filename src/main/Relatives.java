@@ -28,11 +28,14 @@ public class Relatives {
                     // Add each individual with null parents to the tree
                     familyTree.addPerson(line, null, null);
                 } else {
-                    // Establish relationships
-                    String[] parts = line.split(" ");
-                    String childName = parts[0];
-                    String motherName = parts.length > 1 ? parts[1] : null;
-                    String fatherName = parts.length > 2 ? parts[2] : null;
+                    // Read three lines for each relationship (child, mother, father)
+                    String childName = line;
+                    String motherName = bufferedReader.readLine();
+                    String fatherName = bufferedReader.readLine();
+
+                    if (childName == null || motherName == null || fatherName == null) {
+                        break; // Exit if any of the lines is null (end of file or malformed file)
+                    }
 
                     if (!familyTree.personExists(childName)) {
                         familyTree.addPerson(childName, motherName, fatherName);
@@ -56,16 +59,22 @@ public class Relatives {
         String filePath = scanner.nextLine();
         relatives.processFile(filePath);
 
-        System.out.print("Enter a name to see their descendants: ");
+        // System.out.print("Enter a name to see their descendants: ");
         // String name = scanner.nextLine();
         // relatives.familyTree.printDescendants(name);
         // relatives.familyTree.printAncestors(name);
-        // Array<Person> descendants = relatives.familyTree.printDescendants(name);
-        // System.out.println("Descendants of " + name + ":");
-        // for (Person descendant : descendants) {
-        // System.out.println(descendant.getName());
-        // }
-        System.out.println(relatives.familyTree.toString());
+
+        System.out.println("Margaret");
+        relatives.familyTree.printDescendants("Margaret");
+        relatives.familyTree.printAncestors("Margaret");
+        System.out.println(" ");
+        System.out.println("James VI & I");
+        relatives.familyTree.printDescendants("James VI & I");
+        relatives.familyTree.printAncestors("James VI & I");
+        System.out.println(" ");
+        System.out.println("Henry VII");
+        relatives.familyTree.printDescendants("Henry VII");
+        relatives.familyTree.printAncestors("Henry VII");
 
         scanner.close();
     }
