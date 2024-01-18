@@ -13,7 +13,6 @@ public class TreeNodeTest {
 
     @Before
     public void setUp() {
-        // Setup for each test
         rootPerson = new Person("RootPerson", null, null);
         childPerson = new Person("ChildPerson", null, null);
         rootNode = new TreeNode<>(rootPerson);
@@ -24,7 +23,6 @@ public class TreeNodeTest {
         TreeNode<Person> childNode = new TreeNode<>(childPerson);
         rootNode.addChild(childNode);
 
-        // Assert that the child has been added
         assertEquals("Child count should be 1", 1, rootNode.getChildren().getSize());
         assertEquals("Child should be ChildPerson", "ChildPerson", rootNode.getChildren().get(0).getData().getName());
     }
@@ -37,14 +35,13 @@ public class TreeNodeTest {
         rootNode.setMother(motherNode);
         rootNode.setFather(fatherNode);
 
-        // Assert that mother and father are set correctly
         assertEquals("Mother should be set correctly", "Mother", rootNode.getMother().getData().getName());
         assertEquals("Father should be set correctly", "Father", rootNode.getFather().getData().getName());
     }
 
     @Test
     public void testGetData() {
-        // Assert that root node data is correct
+
         assertEquals("Data should be RootPerson", "RootPerson", rootNode.getData().getName());
     }
 }

@@ -16,7 +16,7 @@ public class HashMapNodeTest {
     @Before
     public void setUp() {
         person = new Person("Alice", "MotherName", "FatherName");
-        hashKey = person.getName().hashCode(); // Simple hash for demonstration
+        hashKey = person.getName().hashCode();
         node = new HashMapNode<Integer, Person>(hashKey, person);
     }
 

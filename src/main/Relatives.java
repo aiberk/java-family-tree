@@ -33,7 +33,7 @@ public class Relatives {
             String name = scanner.nextLine();
 
             if (name.equalsIgnoreCase("quit")) {
-                break; // Exit the loop if the user types "quit"
+                break;
             }
 
             relatives.familyTree.printAncestors(name);
@@ -70,10 +70,8 @@ public class Relatives {
                 }
 
                 if (!processingRelationships) {
-                    // Add each individual with null parents to the tree
                     familyTree.addPerson(line, null, null);
                 } else {
-                    // Read three lines for each relationship (child, mother, father)
                     String childName = line;
                     String motherName = bufferedReader.readLine();
                     String fatherName = bufferedReader.readLine();

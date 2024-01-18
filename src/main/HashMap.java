@@ -72,9 +72,9 @@ public class HashMap<K, V> {
         }
 
         if (buckets[bucketIndex] != null && buckets[bucketIndex].getKey().equals(key)) {
-            buckets[bucketIndex].setValue(value); // Update existing
+            buckets[bucketIndex].setValue(value);
         } else {
-            buckets[bucketIndex] = new HashMapNode<>(key, value); // Insert new
+            buckets[bucketIndex] = new HashMapNode<>(key, value);
             size++;
         }
     }
